@@ -67,7 +67,12 @@ kubectl get svc -n prestigious
 ```
 - Patch the service to expose the app using a ALB endpoint
 ```
-kubectl patch svc -n prestigious guestbook-ui -n default -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl patch svc -n prestigious guestbook-ui -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+Then run 
+```
+kubectl get svc -n prestigious guestbook-ui
 ```
 
 
