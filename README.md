@@ -63,11 +63,11 @@ Now that you have successfully logged in to ArgoCd, lets create a new app.
 - Navigate to your terminal  and run 
 
 ```
-kubectl get svc
+kubectl get svc -n prestigious
 ```
 - Patch the service to expose the app using a ALB endpoint
 ```
-kubectl patch svc guestbook-ui -n default -p '{"spec": {"type": "LoadBalancer"}}
+kubectl patch svc -n prestigious guestbook-ui -n default -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
 
