@@ -12,11 +12,8 @@ module "vpc" {
   enable_nat_gateway = true
   single_nat_gateway = true
   enable_vpn_gateway = true
-<<<<<<< HEAD
   create_igw         = true
 
-=======
->>>>>>> 86dfff0390cdc6aa02861ed07646c536edd36375
 
   enable_dns_hostnames = true
   enable_dns_support   = true
