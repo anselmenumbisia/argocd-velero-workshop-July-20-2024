@@ -30,72 +30,72 @@ module "eks_blueprints_platform_teams" {
 
 }
 
-module "development_team" {
-  source = "aws-ia/eks-blueprints-teams/aws"
+# module "development_team" {
+#   source = "aws-ia/eks-blueprints-teams/aws"
 
-  version           = "~> 1.1"
-  name              = "development-team"
-  users             = ["arn:aws:iam::389029577690:user/manager", "arn:aws:iam::389029577690:user/developer", "arn:aws:iam::389029577690:user/developer"]
-  cluster_arn       = module.eks_cluster.cluster_arn
-  oidc_provider_arn = module.eks_cluster.oidc_provider_arn
+#   version           = "~> 1.1"
+#   name              = "development-team"
+#   users             = ["arn:aws:iam::389029577690:user/manager", "arn:aws:iam::389029577690:user/developer", "arn:aws:iam::389029577690:user/developer"]
+#   cluster_arn       = module.eks_cluster.cluster_arn
+#   oidc_provider_arn = module.eks_cluster.oidc_provider_arn
 
-  labels = {
-    "team" = "development"
+#   labels = {
+#     "team" = "development"
 
-  }
-  annotations = {
-    team = "development"
-  }
+#   }
+#   annotations = {
+#     team = "development"
+#   }
 
-  # The platform team needs to own a dedicated Kubernetes namespace so that they can deploy 
-  # some cluster level Kubernetes objects, like Network policies, Security control manifest, Autoscaling configuration etc...
-  # KES blueprint will create a namespace called team-platform
-  namespaces = {
-    "test" = {
+#   # The platform team needs to own a dedicated Kubernetes namespace so that they can deploy 
+#   # some cluster level Kubernetes objects, like Network policies, Security control manifest, Autoscaling configuration etc...
+#   # KES blueprint will create a namespace called team-platform
+#   namespaces = {
+#     "test" = {
 
-      resource_quota = {
-        hard = {
-          "requests.cpu"    = "10000m",
-          "requests.memory" = "20Gi",
-          "limits.cpu"      = "20000m",
-          "limits.memory"   = "50Gi",
-          "pods"            = "20",
-          "secrets"         = "20",
-          "services"        = "20"
-        }
-      }
+#       resource_quota = {
+#         hard = {
+#           "requests.cpu"    = "10000m",
+#           "requests.memory" = "20Gi",
+#           "limits.cpu"      = "20000m",
+#           "limits.memory"   = "50Gi",
+#           "pods"            = "20",
+#           "secrets"         = "20",
+#           "services"        = "20"
+#         }
+#       }
 
-      limit_range = {
-        limit = [
-          {
-            type = "Pod"
-            max = {
-              cpu    = "1000m"
-              memory = "1Gi"
-            },
-            min = {
-              cpu    = "10m"
-              memory = "4Mi"
-            }
-          },
-          {
-            type = "PersistentVolumeClaim"
-            min = {
-              storage = "24M"
-            }
-          }
-        ]
-      }
-    }
+#       limit_range = {
+#         limit = [
+#           {
+#             type = "Pod"
+#             max = {
+#               cpu    = "1000m"
+#               memory = "1Gi"
+#             },
+#             min = {
+#               cpu    = "10m"
+#               memory = "4Mi"
+#             }
+#           },
+#           {
+#             type = "PersistentVolumeClaim"
+#             min = {
+#               storage = "24M"
+#             }
+#           }
+#         ]
+#       }
+#     }
 
-  }
+#   }
 
-  tags = {
-    Environment = "sandbox"
-    Terraform   = "true"
-    Team        = "platform"
-  }
-}
+#   tags = {
+#     Environment = "sandbox"
+#     Terraform   = "true"
+#     Team        = "platform"
+#   }
+# }
 
 
 

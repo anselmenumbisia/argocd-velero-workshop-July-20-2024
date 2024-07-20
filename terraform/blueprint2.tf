@@ -71,84 +71,84 @@ module "eks_cluster" {
   cluster_enabled_log_types   = ["audit", "api", "authenticator", "controllerManager", "scheduler"]
   create_cloudwatch_log_group = true
 
-  # Fargate Profile(s)
-  fargate_profiles = {
-    default = {
-      name       = "default"
-      subnet_ids = module.vpc.private_subnets
-      selectors = [
-        {
-          namespace = "default"
-        }
-      ]
-    }
-    innov = {
-      name       = "innov"
-      subnet_ids = module.vpc.private_subnets
-      selectors = [
-        {
-          namespace = "innov-namespace"
-        }
-      ]
-    }
-  }
+  # # Fargate Profile(s)
+  # fargate_profiles = {
+  #   default = {
+  #     name       = "default"
+  #     subnet_ids = module.vpc.private_subnets
+  #     selectors = [
+  #       {
+  #         namespace = "default"
+  #       }
+  #     ]
+  #   }
+  #   innov = {
+  #     name       = "innov"
+  #     subnet_ids = module.vpc.private_subnets
+  #     selectors = [
+  #       {
+  #         namespace = "innov-namespace"
+  #       }
+  #     ]
+  #   }
+  # }
 
   enable_cluster_creator_admin_permissions = true
 
-  access_entries = {
-    cluster-admin1 = {
+  # access_entries = {
+  #   cluster-admin1 = {
 
-      kubernetes_groups = ["admins"]
-      principal_arn     = "arn:aws:iam::389029577690:user/developer" #module.development_team.iam_role_arn
-      policy_associations = {
-        cluster-admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-            access_scope = {  
-              #namespaces = ["cluster"]
-              type       = "cluster"
+  #     kubernetes_groups = ["admins"]
+  #     principal_arn     = "arn:aws:iam::389029577690:user/developer" #module.development_team.iam_role_arn
+  #     policy_associations = {
+  #       cluster-admin = {
+  #         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  #           access_scope = {  
+  #             #namespaces = ["cluster"]
+  #             type       = "cluster"
 
-            }
-        }
-      }
+  #           }
+  #       }
+  #     }
 
-    },
+  #   },
 
-    cluster-admin2 = {
+  #   cluster-admin2 = {
 
-      kubernetes_groups = ["admin"]
-      principal_arn     = "arn:aws:iam::389029577690:user/manager" #module.development_team.iam_role_arn
-      policy_associations = {
-        cluster-admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-            access_scope = {  
-              #namespaces = ["cluster"]
-              type       = "cluster"
+  #     kubernetes_groups = ["admin"]
+  #     principal_arn     = "arn:aws:iam::389029577690:user/manager" #module.development_team.iam_role_arn
+  #     policy_associations = {
+  #       cluster-admin = {
+  #         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  #           access_scope = {  
+  #             #namespaces = ["cluster"]
+  #             type       = "cluster"
 
-            }
-        }
-      }
+  #           }
+  #       }
+  #     }
 
-    },
+  #   },
 
 
-    cluster-admin3 = {
+  #   cluster-admin3 = {
 
-      kubernetes_groups = ["admin"]
-      principal_arn     = "arn:aws:iam::389029577690:user/kingsley" #module.development_team.iam_role_arn
-      policy_associations = {
-        cluster-admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-            access_scope = {  
-              namespaces = ["default", "innov-namespace"]
-              type       = "namespace"
+  #     kubernetes_groups = ["admin"]
+  #     principal_arn     = "arn:aws:iam::389029577690:user/kingsley" #module.development_team.iam_role_arn
+  #     policy_associations = {
+  #       cluster-admin = {
+  #         policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  #           access_scope = {  
+  #             namespaces = ["default", "innov-namespace"]
+  #             type       = "namespace"
 
-            }
-        }
-      }
+  #           }
+  #       }
+  #     }
 
-    },
+  #   },
 
-  }
+  # }
 
 
   # manage_aws_auth_configmap = true
